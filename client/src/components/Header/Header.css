@@ -1,0 +1,28 @@
+.header_table {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 50px;
+}
+
+.label_row {
+    height: 50px;
+}
+
+.nav_row {
+    height: 40px;
+}
+
+.App-logo {
+    height: 10vmin;
+    pointer-events: none;
+}
+
+@keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
