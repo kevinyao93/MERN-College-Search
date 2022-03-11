@@ -43,7 +43,6 @@ const schoolsSchema = new mongoose.Schema({
     programs: {
         type: [{type: ProgramsSchema, ref: "Programs"}]
     }
-
 });
 
 const Schools = mongoose.model("Schools", schoolsSchema);

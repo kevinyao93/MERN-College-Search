@@ -6,8 +6,10 @@ import programsRouter from '././routes/programs.routes';
 import schoolsRouter from '././routes/schools.routes';
 import './config/mongodb.config';
 
+const cors = require('cors')
 const app = express();
 const PORT = 8080;
+
 
 app.use(
   bodyParser.urlencoded({
@@ -15,7 +17,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-
+app.use(cors())
 app.use('/api', router);
 app.use('/api/programs', programsRouter);
 app.use('/api/schools', schoolsRouter)

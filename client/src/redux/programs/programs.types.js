@@ -1,0 +1,4 @@
+export const ProgramActionTypes = {
+    FETCH_PROGRAM_DATA: "FETCH_PROGRAM_DATA",
+    FETCH_PROGRAM_ERROR: "FETCH_PROGRAM_ERROR"
+}
