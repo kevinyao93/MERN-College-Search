@@ -29,15 +29,6 @@ tr,td,th {
   vertical-align: middle;
 }
 
-.pagination-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-	align-items: center;
-	padding-top: 10!important;
-}
-
-
 ul.pagination {
     list-style-type: none;
 	margin-top: 50px;

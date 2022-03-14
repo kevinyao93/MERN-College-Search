@@ -4,11 +4,14 @@ import './Pagination.css';
 
 
 function Pagination({totalRecords, pageLimit, onPageChanged, currentPage}) {
+    // Create a simple Pagination for a certain number of pages
     const [totalPages, setTotalPage] = useState(0);
     useEffect(() => {
+        // Set the total number of pages depending on how many records are provided and how many elements each page should have.
         setTotalPage(Math.ceil(totalRecords / pageLimit))
     }, [pageLimit, totalRecords])
 
+    // Create option to create a smaller number of pages with skipped elements.
     const range = (from, to, step = 1) => {
         let i = from;
         const range = [];
@@ -22,6 +25,7 @@ function Pagination({totalRecords, pageLimit, onPageChanged, currentPage}) {
     };
 
     const pages = range(1, totalPages) || [];
+    // Setup pages and add in functionality to navigate
     return (
         <nav aria-label="nav-pagination">
           <ul className="pagination">

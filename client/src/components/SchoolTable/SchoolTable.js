@@ -1,17 +1,15 @@
-import { useState, useEffect } from 'react';
-
 import './SchoolTable.css';
 
-function SchoolTable({schools, rowClicked}) {
-
+function SchoolTable({schools, rowClicked, selectedRow}) {
+    // Sunoke table returning a list of mapped schools
     const TableRow = ({index, row, action}) => (
-        <tr onClick={e => action(index)}>
+        <tr className={selectedRow === index ? "selected" : ""} onClick={e => action(index)}>
             <td>{row.institution}</td>
         </tr>
     );
 
     return (
-        <table id="myTable">
+        <table id="schoolTable">
             <tbody>
                 {schools.map((school, index) =>  {
                     return (

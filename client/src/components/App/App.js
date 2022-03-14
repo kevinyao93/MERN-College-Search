@@ -1,6 +1,3 @@
-import Header from '../Header/Header'
-import './App.css';
-
 import {useState, useCallback} from 'react';
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -15,7 +12,12 @@ import Pagination from '../Pagination/Pagination';
 import SchoolTable from '../SchoolTable/SchoolTable';
 import Modal from '../Modal/Modal';
 import Details from '../Details/Details';
+import Header from '../Header/Header'
 
+import './App.css';
+
+// Static descriptions for each of the following values
+// Best option is to eventually add this data into the backend and create models and and routes for them
 const highest_degree = {
   0: "Non-degree-granting",
   1: "Certificate Degree",
@@ -62,11 +64,12 @@ const carnegie = {
 }
 
 function App({fetchSchoolsStartAsync, fetchProgramStartAsync, schools, programs}) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
   const [filteredSchools, setFilteredSchools] = useState([]);
   const [searchedSchools, setSearchedSchools] = useState([]);
   const [currentSchools, setCurrentSchools] = useState([]);
-  const [selectedSchool, setSelectedSchool] = useState({});
+  const [selectedSchool, setSelectedSchool] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
 
 
@@ -76,44 +79,49 @@ function App({fetchSchoolsStartAsync, fetchProgramStartAsync, schools, programs}
   }, [fetchSchoolsStartAsync, fetchProgramStartAsync]);
 
   useEffect(() => {
+    // Depending on the current state, set the set of current schools
     let start = (currentPage - 1) * 20;
     let end = currentPage * 20;
-    setCurrentSchools(schools.slice(start, end));
+    setCurrentSchools(searchedSchools.slice(start, end));
   }, [currentPage])
 
   useEffect(() => {
-    setSearchedSchools(schools);
-  }, [schools])
-
-  useEffect(() => {
-    console.log(filteredSchools);
+    // Reset search and searched schools when the filter options change
+    setSearchValue("");
     setSearchedSchools(filteredSchools);
   }, [filteredSchools])
 
   useEffect(() => {
+    // When the search value changes, change the searched schools by the name of the institution
+    const filtered = schools.filter(school => school.institution.toLowerCase().includes(searchValue.toLowerCase()));
+    setSearchedSchools(filtered);
+  }, [searchValue, schools])
+
+  useEffect(() => {
+    // When the searched schools change, reset the current page to the first page
     setCurrentSchools(searchedSchools.slice(0, 20));
+    setCurrentPage(1);
   }, [searchedSchools])
 
   useEffect(() => {
-    setSelectedSchool(currentSchools[0]);
+    // When the current list of schools change, reset the selected schools to the first option.
+    setSelectedSchool(0);
   }, [currentSchools])
 
   const onPageChanged = useCallback((event, page) => {
+    // Change the page depending on which row is clicked
     event.preventDefault()
     setCurrentPage(page);
   }, [setCurrentPage]);
 
-  function searchSchools(name) {
-    const filtered = schools.filter(school => school.institution.toLowerCase().includes(name.toLowerCase()));
-    setSearchedSchools(filtered);
-  }
-
   function toggleModal() {
+    // Open the filter modal and overlay
     setModalOpen(!modalOpen);
   }
 
   function rowClicked(index) {
-    setSelectedSchool(currentSchools[index]);
+    // Select specific row to show detailed files.
+    setSelectedSchool(index);
   }
 
   return (
@@ -131,17 +139,23 @@ function App({fetchSchoolsStartAsync, fetchProgramStartAsync, schools, programs}
             carnegie={carnegie}
             setFilteredSchools={setFilteredSchools} />
         </div>
-
-        <input type="text" id="searchBar" onChange={e => searchSchools(e.target.value)} placeholder="Search for schools.."></input>
+        <input 
+          type="text"
+          value={searchValue}
+          id="searchBar" 
+          onChange={e => setSearchValue(e.target.value)} 
+          placeholder="Search for schools..">
+        </input>
         <div className="table-wrapper">
           <SchoolTable 
             schools={currentSchools}
             rowClicked={rowClicked}
+            selectedRow={selectedSchool}
           />
         </div>
         <div className="details-wrapper">
           <Details 
-            selectedSchool={selectedSchool}
+            selectedSchool={currentSchools[selectedSchool]}
             programs={programs}
             highest_degree={highest_degree}
             locale={locale}

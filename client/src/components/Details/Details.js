@@ -1,17 +1,18 @@
-
 import {useState} from 'react';
 
 import './Details.css';
 
 function Details({selectedSchool, programs, highest_degree, locale, carnegie}) {
     const [distance, setDistance] = useState(0);
-    
+    // Check to make sure there is an existing school that is passed before trying to return a value
     if (selectedSchool) {
+        // Create clickable URL from existing link
         const url = "https://"+selectedSchool["inst_url"];
+        // Create a list of programs that exist within the selected school
         const filtered = programs.filter(function(program) {
             return (selectedSchool["programs"].indexOf(program.program_id) !== -1);
         })
-
+        // Calculate the "as the crow flies" distance of the school from the current location depending
         const calcCrow = (lat1_degree, lon1_degree, lat2_degree, lon2_degree) => {
           var R = 6371; // km
           var dLat = toRad(lat2_degree-lat1_degree);
@@ -25,12 +26,14 @@ function Details({selectedSchool, programs, highest_degree, locale, carnegie}) {
           var d = R * c;
           return d.toFixed(1);
         }
-    
+        
+        // Convert the latitude to radians
         function toRad(Value) 
         {
             return Value * Math.PI / 180;
         }
 
+        // Get the distance using the built in navigator function and compare against the school that was received.
         const successHandler = position => {
             const curLat = position.coords.latitude;
             const curLong = position.coords.longitude;
@@ -40,9 +43,9 @@ function Details({selectedSchool, programs, highest_degree, locale, carnegie}) {
     
         const errorHandler = error => console.error("error ",error.message);
         navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
-
+        // Build the details using the default table.
         return (
-            <div className="Details">
+            <div className="details">
                 <table>
                     <tbody>
                         <tr>
@@ -81,7 +84,7 @@ function Details({selectedSchool, programs, highest_degree, locale, carnegie}) {
                                 <td>Zip: {selectedSchool["zip"]}</td>
                             }
                             {selectedSchool["latitude"] && selectedSchool["longitude"] &&
-                                <td>Distance from School: {distance}km</td>
+                                <td>Current Distance from School: {distance}km</td>
                             }
                         </tr>
                         <tr>
@@ -100,7 +103,7 @@ function Details({selectedSchool, programs, highest_degree, locale, carnegie}) {
                                             <tr><th>Programs</th></tr>
                                             {filtered.map((program, index) => {
                                                 return (
-                                                    <tr key={index}><td>{program.description}</td></tr>
+                                                    <tr className="programRow" key={index}><td>{program.description}</td></tr>
                                                 )
                                             })}
                                         </tbody>

@@ -1,27 +1,28 @@
 import React, {useState, useEffect} from "react";
-import ReactDOM from "react-dom";
 
 import './Modal.css';
 
+// Modal for filtering and changing all the values
 function Modal({showModal, toggle, schools, highest_degree, locale, carnegie, setFilteredSchools}) {
+    // Initialize default options for the filter
     const defaultOptions = {
         sortingDirection: true,
         excludedDegrees: [],
         excludedCarnegie: [],
         excludedLocales: [],
     }
-
     const [filterOptions, setFilterOptions] = useState(defaultOptions);
 
     useEffect(() => {
+        // Check the filter options and filter the schools depending on the values
         let filteredSchools = schools.filter((school) => {
             if (filterOptions.excludedDegrees.includes(school.highest_degree)) return false;
             if (filterOptions.excludedCarnegie.includes(school.ccsizset)) return false;
             if (filterOptions.excludedLocales.includes(school.locale)) return false;
             return true;
         })
+        // Sort the schools depending on the input
         if (filterOptions.sortingDirection) {
-            console.log("a-z")
             filteredSchools.sort((a, b) => {
                 let fa = a.institution.toLowerCase(),
                     fb = b.institution.toLowerCase();
@@ -52,6 +53,7 @@ function Modal({showModal, toggle, schools, highest_degree, locale, carnegie, se
     }, [schools, filterOptions])
 
     function toggleCheckBox(target, value) {
+        // Flip the value within the options depending on the check box
         const index = filterOptions[target].indexOf(parseInt(value));
         let updatedOptions = filterOptions
         if (index !== -1) {
@@ -62,6 +64,7 @@ function Modal({showModal, toggle, schools, highest_degree, locale, carnegie, se
         setFilterOptions({...updatedOptions});
     }
 
+    // Setup the layout for the modal
     return(
         <>
             <div className={showModal ? "overlay" : "hide"} onClick={toggle} />      

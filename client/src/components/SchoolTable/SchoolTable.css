@@ -1,28 +1,33 @@
  
-  #myTable {
+#schoolTable {
     border-collapse: collapse; /* Collapse borders */
     width: 100%; /* Full-width */
     border: 1px solid #ddd; /* Add a grey border */
     font-size: 18px; /* Increase font-size */
-  }
-  
-  #myTable th, #myTable td {
+}
+
+#schoolTable th, #schoolTable td {
     text-align: left; /* Left-align text */
     padding: 5px; /* Add padding */
-  }
-  
-  #myTable tr {
+}
+
+#schoolTable tr {
     /* Add a bottom border to all table rows */
     border-bottom: 1px solid #ddd;
-  }
+}
 
-  #myTable tr:nth-child(even) {
+#schoolTable tr:nth-child(even) {
     background-color: #e2e2e2;
-  }
+}
 
-  #myTable tr.header, #myTable tr:hover {
-    /* Add a grey background color to the table header and on hover */
+#schoolTable tr.header, #schoolTable tr:hover {
+/* Add a grey background color to the table header and on hover */
     background-color: #bdbdbd;
     cursor: pointer;
-  }
+}
 
+#schoolTable .selected {
+    border: 0px solid #d9dbda;
+    box-shadow: inset 0px 0px 0px 3px blue;
+    box-sizing: border-box;
+}

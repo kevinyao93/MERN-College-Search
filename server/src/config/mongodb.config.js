@@ -32,8 +32,10 @@ const dbConnectionURL = {
 mongoose.connect(dbConnectionURL.LOCAL_DB_URL, options);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Mongodb Connection Error:' + dbConnectionURL.LOCALURL));
+// Load program data into the database.
 let program_data = fs.readFileSync(path.resolve('data', "programs.json"))
 let programs = JSON.parse(program_data)
+// Delete existing programs to replace
 Programs.find({}, function (err, result) {
   let jsonData = result
   for (let i = 0; i < jsonData.length; i++) {
@@ -43,6 +45,7 @@ Programs.find({}, function (err, result) {
     })
   }
 })
+// Insert new programs with the format desired
 let new_programs = []
 for (let key in programs) {
   let newProgram = {
@@ -55,6 +58,7 @@ db.once('open', () => {
      Programs.insertMany(new_programs);
 })
 
+// Delete existing schools from the database
 let school_data = fs.readFileSync(path.resolve('data', "ma_schools.json"));
 let schools = JSON.parse(school_data);
 Schools.find({}, function (err, result) {
@@ -67,6 +71,7 @@ Schools.find({}, function (err, result) {
   }
 })
 
+// Format the schools into existing format to insert into database
 let new_schools = []
 for (let i = 0; i < schools.length; i++) {
   let school = schools[i]

@@ -29,11 +29,9 @@
 }
 
 .pagination-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-	align-items: center;
-	padding-top: 10!important;
+  display: inline-block;
+  vertical-align: top;
+  height: 50px;
 }
 
 .table-wrapper {
