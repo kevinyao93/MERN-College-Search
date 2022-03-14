@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import './SchoolTable.css';
 
-function SchoolTable({schools}) {
+function SchoolTable({schools, rowClicked}) {
 
     const TableRow = ({index, row, action}) => (
         <tr onClick={e => action(index)}>
@@ -10,9 +10,6 @@ function SchoolTable({schools}) {
         </tr>
     );
 
-    function rowClicked(index) {
-        console.log(index);
-    }
     return (
         <table id="myTable">
             <tbody>

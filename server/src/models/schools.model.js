@@ -17,10 +17,10 @@ const schoolsSchema = new mongoose.Schema({
         type: String
     },
     longitude: {
-        type: SchemaTypes.Decimal128
+        type: Number
     },
     latitude: {
-        type: SchemaTypes.Decimal128
+        type: Number
     },
     locale: {
         type: Number
@@ -29,10 +29,10 @@ const schoolsSchema = new mongoose.Schema({
         type: Number
     },
     adm_rate: {
-        type: SchemaTypes.Decimal128
+        type: Number
     },
     sat_avg: {
-        type: SchemaTypes.Decimal128
+        type: Number
     },
     ccsizset: {
         type: Number
@@ -41,7 +41,7 @@ const schoolsSchema = new mongoose.Schema({
         type: String
     },
     programs: {
-        type: [{type: ProgramsSchema, ref: "Programs"}]
+        type: [{type: String, ref: "Programs"}]
     }
 });
 

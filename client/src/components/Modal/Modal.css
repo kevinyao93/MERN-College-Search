@@ -17,16 +17,18 @@
   }
   
 .modal {
-    width: 500px;
+    width: 70%;
+    left: 15%;
+    top: 100px;
     position: fixed;
     margin: 0px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 2px;
-    transform: translateY(100%);
     transition: transform 0.2s ease;
     box-shadow: 0 2px 8px 3px;
     font-family: Helvetica, Arial, sans-serif;
+    text-align: left;
 }
 
 .modal button {
@@ -41,4 +43,17 @@
     box-shadow: 1px 1px 1px #0000003a;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.562);
+}
+
+
+.full_col {
+    text-align: left;
+    width: 100%;
+}
+
+.half_col {
+    width: 50%;
+    text-align: right;
+    vertical-align: top;
+    display: inline-block;
 }

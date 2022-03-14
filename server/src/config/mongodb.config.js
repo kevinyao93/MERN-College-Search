@@ -70,17 +70,6 @@ Schools.find({}, function (err, result) {
 let new_schools = []
 for (let i = 0; i < schools.length; i++) {
   let school = schools[i]
-  let p_arr = []
-  for (let p_index = 0; p_index < school["PROGRAMS"].length; p_index++) {
-     let p_id = school["PROGRAMS"][p_index]
-      Programs.find({program_id: p_id}).populate('Programs').exec(function(err, data) {
-      if (err) {
-        console.log(err);
-      } else {
-        //p_arr.push(data[0])
-      }
-    })
-  }
   let newSchool = {
     institution: school["INSTNM"],
     state: school["STABBR"],
@@ -94,7 +83,7 @@ for (let i = 0; i < schools.length; i++) {
     sat_avg: school["SAT_AVG"] != "NULL" ? +(school["SAT_AVG"]): null,
     ccsizset: school["CCSIZSET"] != "NULL" ? parseInt(school["CCSIZSET"]): null,
     inst_url: school["INSTURL"],
-    programs: p_arr,
+    programs: school["PROGRAMS"],
   }
   new_schools.push(newSchool);
 }

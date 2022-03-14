@@ -25,7 +25,7 @@
 
 .schools-wrapper {
   margin: 0 auto;
-  width: 80%;
+  width: 90%;
 }
 
 .pagination-wrapper {
@@ -37,10 +37,32 @@
 }
 
 .table-wrapper {
+  display: inline-block;
   width: 50%;
 }
 
+.details-wrapper {
+  vertical-align: top;
+  display: inline-block;
+  width: 50%;
+}
+
+.modal_app {
+  display: inline-block;
+  width: 10%;
+}
+
+#filterButton {
+  width: 100%;
+  background-color: #e7e7e7; 
+  color: black;
+  border-radius: 12px;
+  padding: 16px 18px 20px 20px;
+  text-align: center;
+}
+
 #searchBar {
+  display: inline-block;
   background-position: 10px 12px; /* Position the search icon */
   background-repeat: no-repeat; /* Do not repeat the icon image */
   width: 80%; /* Full-width */
